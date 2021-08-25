@@ -138,16 +138,17 @@ function nextDate(str) {
      }
 
     }
-    
+   
 return str
     
 }
 
 //find  nearest palin date
 function checkForOtherPalinDates(str1) {
-
+    
     var otherDate = nextDate(str1)
-    //console.log(otherDate)
+    
+    
     var count = 0
     while(1){
         count = count+1;
@@ -169,6 +170,11 @@ function checkForOtherPalinDates(str1) {
 function  clickHandler() 
 {   
     var bdayDate = bday.value
+    if(bdayDate == ""){
+         outputBox.innerText = "please enter  date"
+    }
+  else{
+      //outputBox.innerText = ""
     var dateList = bdayDate.split('-')
     date={
             day:Number(dateList[2]),
@@ -177,13 +183,31 @@ function  clickHandler()
         }
         
     if(checkPalindromeForAllDateFormats(date)){
-         outputBox.innerText = "yupee...your bday is palindrom !"
+         outputBox.innerText = "processing.."
+         setTimeout(() => {
+                  outputBox.innerText = "yupee...your birthday is palindrom !"
+           },2000);
+        
     }
     else{
         
        var[ctr,otherclosedate]  = checkForOtherPalinDates(date)
-        outputBox.innerText = `you missed it by ${ctr} days, nearest date is ${otherclosedate.day}/${otherclosedate.month}/${otherclosedate.year}`
+       outputBox.innerText = "processing.."
+       if(ctr > 1){
+           
+           setTimeout(() => {
+                 outputBox.innerText = `you missed it by ${ctr} days, nearest date is ${otherclosedate.day}/${otherclosedate.month}/${otherclosedate.year}`
+           },2000);
+         
+       }else{
+            setTimeout(() => {
+                   outputBox.innerText = `you missed it by ${ctr} day, nearest date is ${otherclosedate.day}/${otherclosedate.month}/${otherclosedate.year}`
+           },2000);
+         
+       }
+        
     }
+  }
 }
 
 palinBtn.addEventListener('click',clickHandler )
